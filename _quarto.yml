@@ -1,0 +1,26 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "the r studio world"
+  navbar:
+    right:
+      - href: index.qmd
+        text: about me
+      - href: final.qmd
+        text: final project
+      - href: nm2207.qmd
+        text: nm2207 materials
+    
+
+format:
+  html:
+    theme: 
+      light: pulse
+      dark: vapor
+    css: styles.css
+    toc: true
+    page-layout: full
+
+editor: visual

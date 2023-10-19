@@ -1,0 +1,22 @@
+---
+title: "kyra wu"
+image: P2088921.jpg
+toc: false
+about: 
+  template: jolla
+  image-shape: round
+  image-width: 25em
+  links:
+    - text: LinkedIn
+      icon: linkedin
+      href: https://www.linkedin.com/in/kyrawuxingyi/
+    - text: GitHub
+      icon: github
+      href: https://github.com/samanthacsik
+    - text: Email
+      icon: mailbox
+      href: kyraxwu@gmail.com
+    - text: Gemini
+      icon: moon-stars
+      href: https://www.costarastrology.com/zodiac-signs/gemini-sign
+---
