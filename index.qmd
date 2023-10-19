@@ -1,9 +1,10 @@
 ---
 title: "kyra wu"
+subtitle: coffee for the week!
 image: P2088921.jpg
 toc: false
 about: 
-  template: jolla
+  template: solana
   image-shape: round
   image-width: 25em
   links:
@@ -12,7 +13,7 @@ about:
       href: https://www.linkedin.com/in/kyrawuxingyi/
     - text: GitHub
       icon: github
-      href: https://github.com/samanthacsik
+      href: https://github.com/kyraxwu
     - text: Email
       icon: mailbox
       href: kyraxwu@gmail.com
@@ -20,3 +21,21 @@ about:
       icon: moon-stars
       href: https://www.costarastrology.com/zodiac-signs/gemini-sign
 ---
+
+:::{#hero-heading}
+
+A dreamer designing for other dreamers
+
+## Education
+
+National University of Singapore \| **Singapore**
+
+Bachelors in Philosophy, Politics and Economics \| Minor in Interactive Media Development
+
+:::
+
+## Experience
+
+GDSC \| Product Business Associate \| Aug 2023 - Present
+
+GT \| Business Communications Intern \| June 2023 - Present

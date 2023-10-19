@@ -12,6 +12,11 @@ website:
         text: final project
       - href: nm2207.qmd
         text: nm2207 materials
+      - icon: linkedin
+        href: https://www.linkedin.com/in/kyrawuxingyi/
+      - icon: github
+        href: https://github.com/kyraxwu
+        
     
 
 format:

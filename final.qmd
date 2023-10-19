@@ -1,5 +1,17 @@
 ---
-title: "About"
+title: "final project"
+about: 
+  template: jolla
 ---
 
-About this site
+# placeholder for final project
+
+notes for final project
+
+Inline text will be *italic* if surrounded by underscores or asterisks, e.g., `_text_` or `*text*`. **Bold** text is produced using a pair of double asterisks (`**text**`). A pair of tildes (`~`) turn text to a subscript (e.g., `H~3~PO~4~` renders H~3~PO~4~). A pair of carets (`^`) produce a superscript (e.g., `Cu^2+^` renders Cu^2+^).
+
+To mark text as `inline code`, use a pair of backticks, e.g., `` `code` ``. To include n� literal backticks, use at least n+1�+1 backticks outside, e.g., you can use four backticks to preserve three backtick inside: ````` ```` ```code``` ```` `````, which is rendered as ```` ```code``` ````.
+
+Hyperlinks are created using the syntax `[text](link)`, e.g., `[RStudio](https://www.rstudio.com)`. The syntax for images is similar: just add an exclamation mark, e.g., `![alt text or image title](path/to/image)`. Footnotes are put inside the square brackets after a caret `^[]`, e.g., `^[This is a footnote.]`.
+
+There are multiple ways to insert citations, and we recommend that you use BibTeX databases, because they work better when the output format is LaTeX/PDF. [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of [Xie](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html#ref-xie2016) ([2016](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html#ref-xie2016)) has explained the details. The key idea is that when you have a BibTeX database (a plain-text file with the conventional filename extension `.bib`) that contains entries like:

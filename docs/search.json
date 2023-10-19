@@ -2,8 +2,106 @@
   {
     "objectID": "final.html",
     "href": "final.html",
-    "title": "About",
+    "title": "final project",
     "section": "",
-    "text": "About this site"
+    "text": "placeholder for final project\nnotes for final project\nInline text will be italic if surrounded by underscores or asterisks, e.g., _text_ or *text*. Bold text is produced using a pair of double asterisks (**text**). A pair of tildes (~) turn text to a subscript (e.g., H~3~PO~4~ renders H3PO4). A pair of carets (^) produce a superscript (e.g., Cu^2+^ renders Cu2+).\nTo mark text as inline code, use a pair of backticks, e.g., `code`. To include n� literal backticks, use at least n+1�+1 backticks outside, e.g., you can use four backticks to preserve three backtick inside: ```` ```code``` ````, which is rendered as ```code```.\nHyperlinks are created using the syntax [text](link), e.g., [RStudio](https://www.rstudio.com). The syntax for images is similar: just add an exclamation mark, e.g., ![alt text or image title](path/to/image). Footnotes are put inside the square brackets after a caret ^[], e.g., ^[This is a footnote.].\nThere are multiple ways to insert citations, and we recommend that you use BibTeX databases, because they work better when the output format is LaTeX/PDF. Section 2.8 of Xie (2016) has explained the details. The key idea is that when you have a BibTeX database (a plain-text file with the conventional filename extension .bib) that contains entries like:"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "kyra wu",
+    "section": "",
+    "text": "A dreamer designing for other dreamers\n\n\nNational University of Singapore | Singapore\nBachelors in Philosophy, Politics and Economics | Minor in Interactive Media Development"
+  },
+  {
+    "objectID": "nm2207.html",
+    "href": "nm2207.html",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Access the weekly class materials here on Github . I will try to update it as frequently as possible!\n\n\nCourse Introduction/ Preliminaries/ Software Set-up\n\n\n\nIntroduction to Data & Visualisation\n\n\n\nVariables and their Types\n\n\n\nManipulating Data\n\n\n\nFunctions\n\n\n\nQuiz & Iterations\n\n\n\nVisualising Data using Ggplot2\n\n\n\nVisualising Data using Shiny\n\n\n\nExploratory Data Analyses"
+  },
+  {
+    "objectID": "nm2207.html#weekly-materials",
+    "href": "nm2207.html#weekly-materials",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Access the weekly class materials here on Github . I will try to update it as frequently as possible!\n\n\nCourse Introduction/ Preliminaries/ Software Set-up\n\n\n\nIntroduction to Data & Visualisation\n\n\n\nVariables and their Types\n\n\n\nManipulating Data\n\n\n\nFunctions\n\n\n\nQuiz & Iterations\n\n\n\nVisualising Data using Ggplot2\n\n\n\nVisualising Data using Shiny\n\n\n\nExploratory Data Analyses"
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "kyra wu",
+    "section": "",
+    "text": "National University of Singapore | Singapore\nBachelors in Philosophy, Politics and Economics | Minor in Interactive Media Development"
+  },
+  {
+    "objectID": "index.html#experience",
+    "href": "index.html#experience",
+    "title": "kyra wu",
+    "section": "Experience",
+    "text": "Experience\nGDSC | Product Business Associate | Aug 2023 - Present\nGT | Business Communications Intern | June 2023 - Present"
+  },
+  {
+    "objectID": "nm2207.html#week-1",
+    "href": "nm2207.html#week-1",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Course Introduction/ Preliminaries/ Software Set-up"
+  },
+  {
+    "objectID": "nm2207.html#week-2",
+    "href": "nm2207.html#week-2",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Introduction to Data & Visualisation"
+  },
+  {
+    "objectID": "nm2207.html#week-3",
+    "href": "nm2207.html#week-3",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Variables and their Types"
+  },
+  {
+    "objectID": "nm2207.html#week-4",
+    "href": "nm2207.html#week-4",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Manipulating Data"
+  },
+  {
+    "objectID": "nm2207.html#week-5",
+    "href": "nm2207.html#week-5",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Functions"
+  },
+  {
+    "objectID": "nm2207.html#week-6",
+    "href": "nm2207.html#week-6",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Quiz & Iterations"
+  },
+  {
+    "objectID": "nm2207.html#week-7",
+    "href": "nm2207.html#week-7",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Visualising Data using Ggplot2"
+  },
+  {
+    "objectID": "nm2207.html#week-8",
+    "href": "nm2207.html#week-8",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Visualising Data using Shiny"
+  },
+  {
+    "objectID": "nm2207.html#week-9",
+    "href": "nm2207.html#week-9",
+    "title": "the nm2207 journey",
+    "section": "",
+    "text": "Exploratory Data Analyses"
   }
 ]

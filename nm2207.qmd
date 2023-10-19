@@ -1,3 +1,43 @@
 ---
-title: "nm2207"
+title: "the nm2207 journey"
 ---
+
+# weekly materials
+
+Access the weekly class materials here on [Github](https://github.com/kyraxwu/r-struggles) . I will try to update it as frequently as possible!
+
+## [Week 1](https://github.com/kyraxwu/r-struggles/tree/main/Week-1)
+
+Course Introduction/ Preliminaries/ Software Set-up
+
+## [Week 2](https://github.com/kyraxwu/r-struggles/tree/main/Week-2)
+
+Introduction to Data & Visualisation
+
+## [Week 3](https://github.com/kyraxwu/r-struggles/tree/main/Week-3)
+
+Variables and their Types
+
+## [Week 4](https://github.com/kyraxwu/r-struggles/tree/main/Week-4)
+
+Manipulating Data
+
+## [Week 5](https://github.com/kyraxwu/r-struggles/tree/main/Week-5)
+
+Functions
+
+## [Week 6](https://github.com/kyraxwu/r-struggles/tree/main/Week-6)
+
+Quiz & Iterations
+
+## [Week 7](https://github.com/kyraxwu/r-struggles/tree/main/Week-7)
+
+Visualising Data using Ggplot2
+
+## [Week 8](https://github.com/kyraxwu/r-struggles/tree/main/Week-8)
+
+Visualising Data using Shiny
+
+## [Week 9](https://github.com/kyraxwu/r-struggles/tree/main/Week-9)
+
+Exploratory Data Analyses
