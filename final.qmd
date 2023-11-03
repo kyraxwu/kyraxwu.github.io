@@ -4,7 +4,7 @@ about:
   template: jolla
 ---
 
-# placeholder for final project
+# placeholder for final project - i am unable to implement the shiny app despite following the tutorial. I have emailed the TA for help! 
 
 notes for final project
 

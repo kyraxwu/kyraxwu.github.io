@@ -41,3 +41,12 @@ Visualising Data using Shiny
 ## [Week 9](https://github.com/kyraxwu/r-struggles/tree/main/Week-9)
 
 Exploratory Data Analyses
+
+## [Week 10](https://github.com/kyraxwu/r-struggles/tree/main/Week-10)
+
+Final Project Help Session
+
+## [Week 11](https://github.com/kyraxwu/r-struggles/tree/main/Week-11)
+
+Practise Project
+
