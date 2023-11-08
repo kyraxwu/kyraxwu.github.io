@@ -5,6 +5,8 @@ account: kyrawu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10407044
-bundleId: 7885827
+bundleId: 7902239
 url: https://kyrawu.shinyapps.io/mcdonalds/
 version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -12,6 +12,32 @@ Inline text will be *italic* if surrounded by underscores or asterisks, e.g., `_
 
 To mark text as `inline code`, use a pair of backticks, e.g., `` `code` ``. To include n� literal backticks, use at least n+1�+1 backticks outside, e.g., you can use four backticks to preserve three backtick inside: ````` ```` ```code``` ```` `````, which is rendered as ```` ```code``` ````.
 
+```{r}
+library(shiny)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+  sidebarLayout(
+    sidebarPanel(sliderInput("samplesize","Sample Size:",min = 100,max = 10000,value = 1000)),
+    mainPanel(plotOutput("distPlot"))
+  )
+)
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    hist(rnorm(input$samplesize),col='darkorchid',xlab="Sample",main="Standard Normally Distributed Sample")},
+    height=300
+  )
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+```
+
 Hyperlinks are created using the syntax `[text](link)`, e.g., `[RStudio](https://www.rstudio.com)`. The syntax for images is similar: just add an exclamation mark, e.g., `![alt text or image title](path/to/image)`. Footnotes are put inside the square brackets after a caret `^[]`, e.g., `^[This is a footnote.]`.
 
 There are multiple ways to insert citations, and we recommend that you use BibTeX databases, because they work better when the output format is LaTeX/PDF. [Section 2.8](https://bookdown.org/yihui/bookdown/citations.html) of [Xie](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html#ref-xie2016) ([2016](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html#ref-xie2016)) has explained the details. The key idea is that when you have a BibTeX database (a plain-text file with the conventional filename extension `.bib`) that contains entries like:
+
+
+
