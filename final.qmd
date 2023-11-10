@@ -6,7 +6,9 @@ execute:
 engine: knitr
 ---
 
-<iframe height="400" width="100%" frameborder="no" src="https://kyrawu.shinyapps.io/mcdonalds/"> </iframe>
+<iframe height="400" width="100%" frameborder="no" src=" https://kyrawu.shinyapps.io/McDWorldMap/"> </iframe>
 
 
+next we have 
 
+<iframe height="400" width="100%" frameborder="no" src="https://kyrawu.shinyapps.io/BigMacPrice/"> </iframe>

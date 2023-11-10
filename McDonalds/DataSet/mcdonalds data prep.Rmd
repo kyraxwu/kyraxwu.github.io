@@ -14,7 +14,7 @@ library(readxl)
 ## Reading in data
 
 ```{r}
-setwd("/Users/ethan/Documents/Documents/Y3S1/kyra/APAC mcd menus")
+setwd("//Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet/APAC mcd menus")
 df = read_csv("[2023-11-03 07_37_15] mcd-api-in.csv")
 df = df %>% mutate(`Price (USD)` = round(`Price (INR)`*0.0120268, 2) ) #fixing calculation error in data
 write_csv(df, "[2023-11-03 07_37_15] mcd-api-in.csv")
@@ -22,11 +22,11 @@ write_csv(df, "[2023-11-03 07_37_15] mcd-api-in.csv")
 
 ##apac_menus
 ```{r}
-setwd("/Users/ethan/Documents/Documents/Y3S1/kyra")
+setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet")
 bmi = read_csv("BigmacPrice.csv")
 outlets = read_csv("most mcdonalds countries 2022 - Sheet1.csv")
 nutrition = read_xlsx("pffy-data-mcdonalds-nutrition-facts.xlsx", sheet = 1)
-setwd("/Users/ethan/Documents/Documents/Y3S1/kyra/APAC mcd menus")
+setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet/APAC mcd menus")
 csv_files=list.files(pattern = "*.csv$")
 apac_menus = NULL
 
@@ -45,7 +45,7 @@ for (file in csv_files) {
     apac_menus <- rbind(apac_menus, df)
   }
 }
-setwd("/Users/ethan/Documents/Documents/Y3S1/kyra")
+setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet")
 names(apac_menus) = c("territory", "menu item", "price", "category", "menu")
 write_csv(apac_menus, "apac_menus.csv")
 
@@ -69,6 +69,12 @@ outlets <- outlets %>%
 world_cities <- maps::world.cities %>%
   distinct(country.etc, lat, long) %>%
   rename(Country = country.etc)
+world_cities <- world_cities %>%
+  mutate(Country = case_when(
+    Country == "Bahamas" ~ "The Bahamas",
+    Country == "Korea South" ~ "South Korea",
+    TRUE ~ Country
+  ))
 
 # Join with your data
 outlets <- left_join(outlets, world_cities, by = "Country")
