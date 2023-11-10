@@ -1,57 +1,47 @@
-# Load required libraries
+# Library
 library(shiny)
-library(dplyr)
-library(ggplot2)
+library(leaflet)
 
-# Define the UI for the Shiny app
+# Define UI
 ui <- fluidPage(
-  titlePanel("Big Mac Price Explorer"),
-  sidebarLayout(
-    sidebarPanel(
-      sliderInput("year", "Select a Year:", min = 2000, max = 2023, value = 2023),
-      br(),
-      downloadButton("downloadData", "Download Filtered Data")
-    ),
-    mainPanel(
-      plotOutput("pricePlot")
-    )
-  )
+  leafletOutput("map")
 )
 
-# Define the server logic
-server <- function(input, output) {
-  # Load the CSV data
-  bigmac_data <- read.csv("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet/BigmacPrice.csv", stringsAsFactors = FALSE)
+# Define server
+server <- function(input, output, session) {
   
-  # Convert the 'date' column to a Date object
-  bigmac_data$date <- as.Date(bigmac_data$date)
+  # load example data (Fiji Earthquakes) + keep only 100 first lines
+  data(quakes)
+  quakes <-  head(quakes, 100)
   
-  # Define a reactive expression for filtered data
-  filtered_data <- reactive({
-    bigmac_data %>%
-      filter(year(date) == input$year)
+  # Create a color palette with handmade bins.
+  mybins <- seq(4, 6.5, by = 0.5)
+  mypalette <- colorBin(palette = "YlOrBr", domain = quakes$mag, na.color = "transparent", bins = mybins)
+  
+  # Prepare the text for the tooltip:
+  mytext <- paste(
+    "Depth: ", quakes$depth, "<br/>",
+    "Stations: ", quakes$stations, "<br/>",
+    "Magnitude: ", quakes$mag, sep = ""
+  ) %>%
+    lapply(htmltools::HTML)
+  
+  # Create Leaflet map
+  output$map <- renderLeaflet({
+    leaflet(quakes) %>%
+      addTiles()  %>% 
+      setView(lat = -27, lng = 170, zoom = 4) %>%
+      addProviderTiles("Esri.WorldImagery") %>%
+      addCircleMarkers(
+        ~long, ~lat,
+        fillColor = ~mypalette(mag), fillOpacity = 0.7, color = "white", radius = 8, stroke = FALSE,
+        label = mytext,
+        labelOptions = labelOptions(style = list("font-weight" = "normal", padding = "3px 8px"), textsize = "13px", direction = "auto")
+      ) %>%
+      addLegend(pal = mypalette, values = ~mag, opacity = 0.9, title = "Magnitude", position = "bottomright")
   })
-  
-  # Create a plot of Big Mac prices
-  output$pricePlot <- renderPlot({
-    filtered_data() %>%
-      ggplot(aes(x = name, y = dollar_price, fill = currency_code)) +
-      geom_bar(stat = "identity") +
-      labs(title = "Big Mac Prices by Country", x = "Country", y = "Price in USD") +
-      theme_minimal() +
-      theme(axis.text.x = element_text(angle = 45, hjust = 1))
-  })
-  
-  # Create a download button for filtered data
-  output$downloadData <- downloadHandler(
-    filename = function() {
-      paste("bigmac_prices_", input$year, ".csv", sep = "")
-    },
-    content = function(file) {
-      write.csv(filtered_data(), file)
-    }
-  )
 }
 
-# Run the Shiny app
+# Run the application
 shinyApp(ui, server)
+
