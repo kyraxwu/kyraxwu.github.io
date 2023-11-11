@@ -1,18 +1,3 @@
----
-title: "final project"
-execute: 
-  eval: false
-  echo: false
-engine: knitr
----
-
-<iframe height="400" width="100%" frameborder="no" src=" https://kyrawu.shinyapps.io/McDWorldMap/"> </iframe>
-
-
-next we have 
-
-<iframe height="400" width="100%" frameborder="no" src="https://kyrawu.shinyapps.io/BigMacPrice/"> </iframe>
-```{r, eval=TRUE}
 library(shiny)
 library(readr)
 library(ggplot2)
@@ -113,5 +98,3 @@ server <- function(input, output, session) {
 
 # Run the application
 shinyApp(ui, server)
-```
-
