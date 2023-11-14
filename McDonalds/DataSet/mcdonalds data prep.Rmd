@@ -11,12 +11,11 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(readxl)
 library(sf)
-library(rnaturalearth)
 ```
 ## Reading in data
 
 ```{r}
-setwd("//Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet/APAC mcd menus")
+setwd("/Users/ethan/Documents/Documents/Y3S1/kyra/APAC mcd menus")
 df = read_csv("[2023-11-03 07_37_15] mcd-api-in.csv")
 df = df %>% mutate(`Price (USD)` = round(`Price (INR)`*0.0120268, 2) ) #fixing calculation error in data
 write_csv(df, "[2023-11-03 07_37_15] mcd-api-in.csv")
@@ -24,11 +23,11 @@ write_csv(df, "[2023-11-03 07_37_15] mcd-api-in.csv")
 
 ##apac_menus
 ```{r}
-setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet")
+setwd("/Users/ethan/Documents/Documents/Y3S1/kyra")
 bmi = read_csv("BigmacPrice.csv")
 outlets = read_csv("most mcdonalds countries 2022 - Sheet1.csv")
 nutrition = read_xlsx("pffy-data-mcdonalds-nutrition-facts.xlsx", sheet = 1)
-setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet/APAC mcd menus")
+setwd("/Users/ethan/Documents/Documents/Y3S1/kyra/APAC mcd menus")
 csv_files=list.files(pattern = "*.csv$")
 apac_menus = NULL
 
@@ -47,7 +46,7 @@ for (file in csv_files) {
     apac_menus <- rbind(apac_menus, df)
   }
 }
-setwd("/Users/kyrawu/kyraxwu.github.io/McDonalds/DataSet")
+setwd("/Users/ethan/Documents/Documents/Y3S1/kyra")
 names(apac_menus) = c("territory", "menu item", "price", "category", "menu")
 write_csv(apac_menus, "apac_menus.csv")
 
@@ -59,6 +58,8 @@ write_csv(apac_menus, "apac_menus.csv")
 #install.packages("maps")
 library(countrycode)
 library(maps)
+#install.packages("rnaturalearthdata")
+library(rnaturalearth)
 
 # Add country code
 outlets <- outlets %>%
@@ -78,6 +79,9 @@ world_cities <- world_cities %>%
     TRUE ~ Country
   ))
 
+summary(as_factor(world_countries$income_grp))
+
+
 outlets <- left_join(outlets, world_cities, by = "Country")
 centroids <- outlets %>%
   group_by(Country) %>%
@@ -88,13 +92,13 @@ centroids <- outlets %>%
 outlets <- left_join(outlets, centroids, by = "Country") %>% select(-"lat", -"long") %>% distinct()
 
 outlets <- outlets  %>%
-    mutate(Country = tolower(Country)) # Ensure country names are in lowercase for matching
+    mutate(Country = tolower(Country))# Ensure country names are in lowercase for matching
 world_countries <- ne_countries(scale = "medium", returnclass = "sf")
 
-# Join with your data
+  # Join outlets data with the world map data
 outlets <- world_countries %>%
     left_join(outlets, by = c("adm0_a3" = "country_code")) %>% 
-    select("name","outlets_per_mil", "num_outlets", "First Opening", "pop_est", "gdp_md_est", "economy", "income_grp", "geometry", "centroid_lat","centroid_long") %>% na.omit()
+    select("name","outlets_per_mil", "num_outlets", "First Opening", "pop_est", "gdp_md_est", "economy", "income_grp", "geometry", "centroid_lat","centroid_long") %>% na.omit()# %>% distinct()
 
 outlets_wkt <- outlets
 outlets_wkt$geometry <- st_as_text(outlets$geometry)

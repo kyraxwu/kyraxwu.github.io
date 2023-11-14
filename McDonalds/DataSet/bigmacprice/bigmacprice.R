@@ -2,8 +2,8 @@ library(shiny)
 library(readr)
 library(ggplot2)
 library(rnaturalearth)
+library(rnaturalearthdata)
 library(tidyverse)
-# ... [Other libraries and existing code] ...
 
 ui <- fluidPage(
   # ... [Existing UI elements] ...
@@ -74,6 +74,7 @@ server <- function(input, output, session) {
     geom_line() +
     theme_minimal() +
     labs(title = "Big Mac Index Over Time", x = "Date", y = "Price (Local Currency)")
+
   
   # Render the time series chart
   output$bigMacTimeSeries <- renderPlot({
@@ -94,7 +95,8 @@ server <- function(input, output, session) {
       labs(title = "Big Mac Index Over Time", x = "Date", y = "Price (Local Currency)")
   })
   
+  # ... [Any additional server logic] ...
 }
 
-# Run the application
+# ... [Rest of the existing code] ...
 shinyApp(ui, server)

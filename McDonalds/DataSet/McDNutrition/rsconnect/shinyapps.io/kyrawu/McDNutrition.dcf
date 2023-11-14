@@ -1,0 +1,12 @@
+name: McDNutrition
+title: McDNutrition
+username: kyrawu
+account: kyrawu
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10520458
+bundleId: 7926393
+url: https://kyrawu.shinyapps.io/McDNutrition/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
