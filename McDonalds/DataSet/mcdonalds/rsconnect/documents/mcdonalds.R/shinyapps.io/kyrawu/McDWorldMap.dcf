@@ -5,7 +5,7 @@ account: kyrawu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10485682
-bundleId: 7926108
+bundleId: 7929223
 url: https://kyrawu.shinyapps.io/McDWorldMap/
 version: 1
 asMultiple: FALSE

@@ -5,7 +5,7 @@ account: kyrawu
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 10521990
-bundleId: 7926847
+bundleId: 7929266
 url: https://kyrawu.shinyapps.io/BigMacPrice/
 version: 1
 asMultiple: FALSE
