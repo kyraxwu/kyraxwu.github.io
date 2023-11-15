@@ -22,8 +22,7 @@ about:
       href: https://www.costarastrology.com/zodiac-signs/gemini-sign
 ---
 
-:::{#hero-heading}
-
+::: {#hero-heading}
 A dreamer designing for other dreamers
 
 ## Education
@@ -31,7 +30,6 @@ A dreamer designing for other dreamers
 National University of Singapore \| **Singapore**
 
 Bachelors in Philosophy, Politics and Economics \| Minor in Interactive Media Development
-
 :::
 
 ## Experience
@@ -39,5 +37,3 @@ Bachelors in Philosophy, Politics and Economics \| Minor in Interactive Media De
 GDSC \| Product Business Associate \| Aug 2023 - Present
 
 GT \| Business Communications Intern \| June 2023 - Present
-
-
