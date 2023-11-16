@@ -1,81 +1,118 @@
 library(shiny)
-library(readr)
 library(ggplot2)
-library(rnaturalearth)
 library(tidyverse)
-# ... [Other libraries and existing code] ...
-
-ui <- fluidPage(
-  
-  # UI for time series chart
-  plotOutput("nutrition")
-)
-
 library(readxl)
 library(corrplot)
 library(GGally)
+library(cluster)
 library(factoextra)
+library(tidytext) 
+library(plotly)
 
-nutrition_data <- read_excel("pffy-data-mcdonalds-nutrition-facts.xlsx")
-nutrition_data <- nutrition_data %>%
-  mutate(ITEM = str_replace_all(ITEM, "\\s*\\((?!Small|Medium|Large).*\\)|\\s*\\d+\\s*(fl oz|oz|ml|g|lb|kg)\\b", ""))
+
+
+nutrition_data <- read_excel("pffy-data-mcdonalds-nutrition-facts.xlsx") %>% mutate(CATEGORY = tolower(CATEGORY))
+#nutrition_data <- nutrition_data %>%
+#mutate(ITEM = str_replace_all(ITEM, "\\s*\\((?!Small|Medium|Large).*\\)|\\s*\\d+\\s*(fl oz|oz|ml|g|lb|kg)\\b", ""))
 numdata = nutrition_data %>% select_if(is.numeric)
-corr_matrix <- cor(numdata, use = "complete.obs")  
+corr_matrix <- cor(numdata, use = "complete.obs")  # 'use' parameter handles missing values
 
 # Step 4: Create the Correlation Plot
 corrplot(corr_matrix, method = "color")  # Using corrplot
-ggcorr(corr_matrix, hc.order = TRUE, type = "lower")  
+ggcorr(corr_matrix, hc.order = TRUE, type = "lower")  # Using GGally for a different style
 
-nutrition_data_scaled <- scale(numdata)
+#nutrition_data_scaled <- scale(numdata)
+#lets get tags that we can use to filter search with:
+# Tokenize the menu items into words
+menu_items  = nutrition_data$ITEM
+words <- menu_items %>%
+  as_tibble() %>%
+  unnest_tokens(word, value) %>% filter(!str_detect(word, "\\d+")) 
 
-# Step 3: Choosing the Number of Clusters (K)
-set.seed(123)  # for reproducibility
-wss <- sapply(1:10, function(k){kmeans(nutrition_data_scaled, k, nstart = 10)$tot.withinss})
-plot(1:10, wss, type="b", xlab="Number of Clusters", ylab="Within groups sum of squares")
-kmeans_result <- kmeans(nutrition_data_scaled, centers = 5, nstart = 10)
+# Count word frequencies
+word_freq <- words %>%
+  count(word, sort = TRUE)%>%filter(n>=8, nchar(word)>=3)
 
-pca_result <- prcomp(nutrition_data_scaled, center = TRUE, scale. = TRUE)
+tags <- word_freq$word
 
-# Extract the first two principal components
-pca_data <- as.data.frame(pca_result$x[, 1:2])
-pca_data$cluster <- kmeans_result$cluster
+# Function to add tags to CATEGORY
+add_tags <- function(item, category) {
+  # Find tags that are in the item
+  matching_tags <- tags[sapply(tags, function(t) grepl(t, item, ignore.case = TRUE))]
+  
+  # Combine existing category with new tags, separated by commas
+  new_category <- paste(c(category, matching_tags), collapse = ", ")
+  
+  # Return the updated category
+  return(new_category)
+}
 
-pca_data$ITEM <- nutrition_data$ITEM
+# Apply the function to each row in nutrition_data
+nutrition_data <- nutrition_data %>%
+  rowwise() %>%
+  mutate(CATEGORY = add_tags(ITEM, CATEGORY))
 
-# Step 2: Plot the Clusters with Item Labels
-ggplot(pca_data, aes(x = PC1, y = PC2, label = ITEM, color = as.factor(cluster))) +
-  geom_point(alpha = 0.5) +
-  geom_text(aes(label = ITEM), vjust = 2, hjust = 0.5, check_overlap = TRUE, size = 3) +
-  labs(color = "Cluster", title = "K-means Clustering with PCA", x = "Principal Component 1", y = "Principal Component 2") +
-  theme_minimal()
+options <- setdiff(names(nutrition_data), c("ITEM", "CATEGORY"))
 
-nutrition_data$cluster <- kmeans_result$cluster
-
-# Create the scatter plot
-ggplot(nutrition_data, aes(x = CAL, y = PRO, color = as.factor(cluster))) +
-  geom_point(alpha = 0.7) +
-  geom_text(aes(label = ITEM), vjust = 1.5, hjust = 0.5, check_overlap = TRUE, size = 3) +
-  labs(color = "Cluster", title = "Calories vs Protein: K-means Clustering", x = "Calories", y = "Protein") +
-  theme_minimal() +
-  xlim(c(0, 1300)) +  # Set x-axis limits
-  ylim(c(0, 55))  # Set y-axis limits
+ui <- fluidPage(
+  titlePanel("McDonald's Nutrition Data Visualization"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("xaxis", "Select Your First Variable (X-axis):", choices = options),
+      selectInput("yaxis", "Select Your Second Variable (Y-axis):", choices = options),
+      selectInput("color", "Select Third Variable (Colour):", choices = c("None", options)),
+      selectizeInput("tags", "Select Tags:", choices = tags, multiple = TRUE),
+      radioButtons("tagLogic", "Tag Filter Logic:", choices = c("OR" = "or", "AND" = "and"))
+    ),
+    mainPanel(
+      plotlyOutput("nutrition"),  # Changed from plotOutput to plotlyOutput
+      plotOutput("corrPlot")
+    )
+  )
+)
 
 
 server <- function(input, output, session) {
   
-  # Render the time series chart
-  output$nutrition <- renderPlot({
-    ggplot(nutrition_data, aes(x = CAL, y = PRO, color = as.factor(cluster))) +
-      geom_point(alpha = 0.7) +
-      geom_text(aes(label = ITEM), vjust = 1.5, hjust = 0.5, check_overlap = TRUE, size = 3) +
-      labs(color = "Cluster", title = "Calories vs Protein: K-means Clustering", x = "Calories", y = "Protein") +
-      theme_minimal() +
-      xlim(c(0, 1300)) +  # Set x-axis limits
-      ylim(c(0, 55))  # Set y-axis limits
+  filtered_data <- reactive({
+    data <- nutrition_data
+    if (length(input$tags) > 0) {
+      if (input$tagLogic == "and") {
+        # Apply AND logic
+        for (tag in input$tags) {
+          data <- data %>% filter(str_detect(CATEGORY, tag))
+        }
+      } else {
+        # Apply OR logic
+        data <- data %>% filter(str_detect(CATEGORY, paste(input$tags, collapse = "|")))
+      }
+    }
+    data
   })
   
-  # ... [Any additional server logic] ...
+  output$nutrition <- renderPlotly({
+    req(input$xaxis, input$yaxis)  # Ensure these inputs are selected
+    
+    # Create ggplot object
+    p <- ggplot(filtered_data(), aes_string(x = input$xaxis, y = input$yaxis, text = "ITEM")) +
+      geom_point(alpha = 0.7) +
+      labs(title = "Nutrition Data Scatter Plot", x = input$xaxis, y = input$yaxis) +
+      theme_minimal()
+    
+    # If color is selected, add it to the plot
+    if (input$color != "None") {
+      p <- p + aes_string(color = input$color)
+    }
+    
+    # Convert to Plotly and add tooltip
+    ggplotly(p, tooltip = "text")  # Tooltip shows the value of "ITEM"
+  })
+  
+  output$corrPlot <- renderPlot({
+    corrplot(corr_matrix, method = "color")
+  })
 }
 
-# ... [Rest of the existing code] ...
+
 shinyApp(ui, server)
