@@ -125,11 +125,11 @@ server <- function(input, output, session) {
     p
   })
   
-  # Tooltip functionality for plot
+  # Tooltip functionality for plot - Updated nearPoints usage
   observeEvent(input$plot_hover, {
     hover <- input$plot_hover
     if (!is.null(hover)) {
-      info <- nearPoints(filteredData(), hover, type = "nearest")
+      info <- nearPoints(filteredData(), hover)
       if (nrow(info) > 0) {
         # Display tooltip or detailed info
       }
