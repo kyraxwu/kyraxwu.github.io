@@ -1,5 +1,5 @@
 ---
-title: "The Story of McDonalds"
+title: "The Story of McDonald's"
 knitr:
   opts_chunk:
     eval: false
