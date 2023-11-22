@@ -1,8 +1,10 @@
 library(shiny)
 library(readr)
 library(ggplot2)
+library(rnaturalearthdata)
 library(rnaturalearth)
 library(tidyverse)
+library(DT)
 
 ui <- fluidPage(
   tags$head(
@@ -20,11 +22,20 @@ ui <- fluidPage(
   
   fluidRow(
     column(12, 
-           div(plotOutput("bigMacTimeSeries"), style = "border-radius: 8px; overflow: hidden;")
+           div(plotOutput("bigMacTimeSeries", hover = "plot_hover"), style = "border-radius: 8px; overflow: hidden;")
     )
   ),
   fluidRow(
-    column(12, 
+    column(6,
+           wellPanel(
+             sliderInput("timeRange", "Select Time Range:", 
+                         min = as.Date("2000-01-01"), 
+                         max = Sys.Date(), 
+                         value = c(as.Date("2000-01-01"), Sys.Date()), 
+                         timeFormat = "%Y-%m-%d")
+           )
+    ),
+    column(6,
            wellPanel(
              selectInput("grouping", "Select Grouping:",
                          choices = c("Continent" = "continent",
@@ -34,9 +45,11 @@ ui <- fluidPage(
              checkboxInput("showAnnotations", "Show Annotations", TRUE)
            )
     )
+  ),
+  fluidRow(
+    DTOutput("data_table")
   )
 )
-
 
 server <- function(input, output, session) {
   bigMacData <- read_csv("BigmacPrice.csv") %>%
@@ -47,10 +60,12 @@ server <- function(input, output, session) {
       name == "United States" ~ "United States of America",
       TRUE ~ name
     ))
+  
   world_countries <- ne_countries(scale = "medium", returnclass = "sf")
+  
   bigMacData <- bigMacData %>%
     left_join(world_countries, by = c("name" = "admin")) %>% 
-    select("name","date", "dollar_price", "continent", "subregion",
+    select("name", "date", "dollar_price", "continent", "subregion",
            "pop_est", "gdp_md_est", "economy", "income_grp") 
   
   #avg by continent
@@ -82,14 +97,19 @@ server <- function(input, output, session) {
            "income_grp" = averagePriceByincome)
   })
   
+  filteredData <- reactive({
+    req(input$timeRange)
+    selectedData() %>%
+      filter(date >= input$timeRange[1] & date <= input$timeRange[2])
+  })
+  
   output$bigMacTimeSeries <- renderPlot({
-    
-    p <- ggplot(selectedData(), aes_string(x = "date", y = "average_dollar_price", group = input$grouping, color = input$grouping)) +
+    p <- ggplot(filteredData(), aes_string(x = "date", y = "average_dollar_price", group = input$grouping, color = input$grouping)) +
       geom_line() +
       theme_minimal() +
       labs(title = "Big Mac Index Over Time", x = "Date", y = "Price (Local Currency)") + 
       scale_color_brewer(palette = "Set2") +
-      theme(panel.background = element_rect(fill = "#F5F5F5")) 
+      theme(panel.background = element_rect(fill = "#F5F5F5"))  
     
     if (input$showAnnotations) {
       p <- p + 
@@ -103,6 +123,17 @@ server <- function(input, output, session) {
         annotate("text", x = as.Date("2020-03-01"), y = Inf, label = "COVID Lockdown", vjust = 2, color = "red", fontface = "bold")
     }
     p
+  })
+  
+  # Tooltip functionality for plot
+  observeEvent(input$plot_hover, {
+    hover <- input$plot_hover
+    if (!is.null(hover)) {
+      info <- nearPoints(filteredData(), hover, type = "nearest")
+      if (nrow(info) > 0) {
+        # Display tooltip or detailed info
+      }
+    }
   })
 }
 
