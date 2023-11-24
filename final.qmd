@@ -46,7 +46,7 @@ The countries with lower McDonald's density often share common characteristics. 
 Zooming in on Africa, a continent seemingly devoid of McDonald's presence, we uncover a myriad of factors influencing this phenomenon.
 
 | **Factors**                | **Implications**                                                                                                                                                                                                                                       |
-|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------|----------------------------------------------------------|
 | 📉 Economic Challenges     | Africa's diverse economic landscape poses challenges like poverty, political instability, and underdeveloped infrastructure. These hurdles can hinder McDonald's efforts to establish profitable operations in certain regions.                        |
 | 🍲 Cultural Diversity      | Africa's rich culinary heritage presents a complex challenge. While McDonald's adapts menus to local tastes, achieving a balance between global consistency and diverse local preferences becomes intricate in a continent with such culinary variety. |
 | 🚚 Supply Chain Struggles  | McDonald's stringent quality standards rely on efficient supply chains. Inadequate infrastructure, including transportation and logistics, in Africa can impede the reliable supply of ingredients, affecting the company's quality standards.         |
@@ -115,4 +115,8 @@ knitr::include_graphics("international.jpeg")
 
 In this captivating journey through the McDonald's universe, we've explored the global map of McDonald's locations as of 2022, revealing density hot spots and their correlation with GDP per-capita. We've uncovered the disparities in McDonald's presence in different countries, with a focus on Africa's unique challenges. Whether you're seeking a McDonald's around the world or analyzing the Big Mac Price Index, we've provided valuable insights. And for those concerned about nutrition, we've delved into the correlation plot and nutritional values to empower informed food choices. So, whether you're an economist, a foodie, or a health-conscious consumer, McDonald's offers a diverse menu and a world of exploration. Enjoy your meal! 🍔
 
-If you would like to learn more about the process of creating this, do click [here](https://github.com/kyraxwu/r-struggles/blob/main/Week-13/Final%20Submission.Rmd)!
+```{r, eval=TRUE}
+knitr::include_graphics("grimace.png")
+```
+
+Grimace here! If you would like to learn more about the process of creating this, do click [here](https://github.com/kyraxwu/r-struggles/blob/main/Week-13/Final%20Submission.Rmd)!
